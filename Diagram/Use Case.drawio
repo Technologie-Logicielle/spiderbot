@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-03-11T06:23:32.174Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" etag="xEUYgKeYmMPQPupfQiAi" version="24.0.1" type="github" pages="2">
+<mxfile host="app.diagrams.net" modified="2024-03-11T06:27:22.874Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" etag="ZiaD2FHKiwKUGLfF1FgG" version="24.0.1" type="github" pages="2">
   <diagram name="User use case" id="Ko1R9B8rcGebuMnj-8Z0">
     <mxGraphModel dx="2442" dy="1053" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -7,10 +7,10 @@
         <mxCell id="7w-lUOvfISHX_5LblmBV-1" value="Visitor" style="html=1;outlineConnect=0;whiteSpace=wrap;fillColor=#ffff99;verticalLabelPosition=bottom;verticalAlign=top;align=center;shape=mxgraph.archimate3.actor;" vertex="1" parent="1">
           <mxGeometry x="-395" y="320" width="26.5" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="7w-lUOvfISHX_5LblmBV-2" value="Login" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="7w-lUOvfISHX_5LblmBV-2" value="Login" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
           <mxGeometry x="-385" y="20" width="140" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="7w-lUOvfISHX_5LblmBV-3" value="Logout" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="7w-lUOvfISHX_5LblmBV-3" value="Logout" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
           <mxGeometry x="-221.75" y="20" width="140" height="70" as="geometry" />
         </mxCell>
         <mxCell id="7w-lUOvfISHX_5LblmBV-4" value="Register" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
@@ -34,7 +34,7 @@
             <mxPoint x="265" y="510" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="7w-lUOvfISHX_5LblmBV-8" value="Search conference by name, topic, ..." style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="7w-lUOvfISHX_5LblmBV-8" value="Search conference by name, topic, ..." style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
           <mxGeometry x="-508.5" y="520" width="140" height="70" as="geometry" />
         </mxCell>
         <mxCell id="7w-lUOvfISHX_5LblmBV-9" value="" style="edgeStyle=none;html=1;endArrow=none;verticalAlign=bottom;rounded=0;" edge="1" parent="1" source="7w-lUOvfISHX_5LblmBV-8" target="7w-lUOvfISHX_5LblmBV-1">
@@ -43,7 +43,7 @@
             <mxPoint x="265" y="610" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="7w-lUOvfISHX_5LblmBV-10" value="View conference information" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="7w-lUOvfISHX_5LblmBV-10" value="View conference information" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
           <mxGeometry x="-685" y="455" width="140" height="70" as="geometry" />
         </mxCell>
         <mxCell id="7w-lUOvfISHX_5LblmBV-11" value="" style="edgeStyle=none;html=1;endArrow=none;verticalAlign=bottom;rounded=0;" edge="1" parent="1" source="7w-lUOvfISHX_5LblmBV-1" target="7w-lUOvfISHX_5LblmBV-10">
@@ -91,7 +91,7 @@
         <mxCell id="vdh72SyydjpXlibg6nU2-1" value="Reset user password" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="285" y="220" width="140" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="vdh72SyydjpXlibg6nU2-2" value="Configure crawler settings" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="vdh72SyydjpXlibg6nU2-2" value="Configure crawler settings" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
           <mxGeometry x="285" y="360" width="140" height="70" as="geometry" />
         </mxCell>
         <mxCell id="vdh72SyydjpXlibg6nU2-3" value="" style="edgeStyle=none;html=1;endArrow=none;verticalAlign=bottom;rounded=0;" edge="1" parent="1" source="mbL1N-JP5x9nlFbvt5YW-6" target="vdh72SyydjpXlibg6nU2-2">
@@ -106,7 +106,7 @@
             <mxPoint x="175" y="480" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="vdh72SyydjpXlibg6nU2-5" value="Hide conference" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="vdh72SyydjpXlibg6nU2-5" value="Hide conference" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
           <mxGeometry x="285" y="500" width="140" height="70" as="geometry" />
         </mxCell>
         <mxCell id="vdh72SyydjpXlibg6nU2-6" value="" style="edgeStyle=none;html=1;endArrow=none;verticalAlign=bottom;rounded=0;" edge="1" parent="1" source="mbL1N-JP5x9nlFbvt5YW-6" target="vdh72SyydjpXlibg6nU2-5">
@@ -114,6 +114,12 @@
             <mxPoint x="-185" y="340" as="sourcePoint" />
             <mxPoint x="-25" y="340" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="iWlByqNtxP_ktOgxoj2r-1" value="must have" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="-740" y="780" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iWlByqNtxP_ktOgxoj2r-4" value="optional" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-740" y="860" width="100" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
