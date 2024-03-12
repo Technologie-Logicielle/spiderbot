@@ -1,0 +1,62 @@
+﻿@page
+@model DoAn.Pages.MHMathang.IndexModel
+@{
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1>Mặt hàng</h1>
+            <form method="post">
+                <label for="find">Tìm kiếm</label>
+                <input type="text" id="find" name="Keyword" value="@Model.Keyword" />
+                <input type="submit" value="OK" />
+            </form>
+        </div>
+        <div class="col-6 text-right">
+            <a class="btn btn-outline-primary" href="./Create">Thêm mặt hàng</a>
+        </div>
+    </div>
+    <br />
+    @if (Model.dsMathang.Count <= 0)
+    {
+    <p>No product exists.</p>
+    }
+    else
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Mã</th>
+                    <th>Tên mặt hàng</th>
+                    <th>Hạn dùng</th>
+                    <th>Công ty sản xuất</th>
+                    <th>Năm sản xuất</th>
+                    <th>Loại hàng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var mathang in Model.dsMathang)
+                {
+                    <tr>
+                        <td width="5%">@mathang.Ma</td>
+                        <td width="30%">@mathang.Ten</td>
+                        <td width="10%">@mathang.HanDung.ToString("dd/MM/yyyy")</td>
+                        <td width="25%">@mathang.CongTy</td>
+                        <td width="15%">@mathang.NamSX</td>
+                        <td width="15%">@Model.TimtenLoaihangtheoma(mathang.Loaihang)</td>
+                        <td class="text-center">
+                            <div class="w-75 btn-group" role="group">
+                                <a href="/MHMathang/Edit?Ma=@mathang.Ma" class="btn btn-outline-warning mx-2">Sửa</a>
+                                <a href="/MHMathang/Delete?Ma=@mathang.Ma" class="btn btn-outline-danger mx-2">Xoá</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+
+</div>
+

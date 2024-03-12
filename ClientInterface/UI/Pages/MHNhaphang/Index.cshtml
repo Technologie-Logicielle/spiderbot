@@ -1,0 +1,62 @@
+﻿@page
+@model DoAn.Pages.MHNhaphang.IndexModel
+@{
+}
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1>Hoá đơn nhập hàng</h1>
+            <form method="post">
+                <label for="find">Tìm kiếm</label>
+                <input type="text" id="find" name="Keyword" value="@Model.Keyword" />
+                <input type="submit" value="OK" />
+            </form>
+        </div>
+        <div class="col-6 text-right">
+            <a class="btn btn-outline-primary" href="./Create">Thêm hoá đơn nhập hàng</a>
+        </div>
+    </div>
+
+    <br />
+
+    @if (Model.dsHoadonnhap.Count > 0)
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Mã</th>
+                    <th>Tên hóa đơn</th>
+                    <th>Mặt hàng Nhập</th>
+                    <th>Số lượng</th>
+                    <th>Ngày nhập</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var hoadonnhap in Model.dsHoadonnhap)
+                {
+                <tr>
+                    <td width="10%">@hoadonnhap.Ma</td>
+                    <td width="25%">@hoadonnhap.Ten</td>
+                    <td width="30%">@Model.TimtenmathangtheoMa(hoadonnhap.MaMathang)</td>
+                    <td width="15%">@hoadonnhap.Soluong</td>
+                    <td width="20%">@hoadonnhap.Ngaynhap.ToString("dd/MM/yyyy")</td>
+                    <td class="text-center">
+                        <div class="w-75 btn-group" role="group">
+                            <a href="/MHNhaphang/Edit?Ma=@hoadonnhap.Ma" class="btn btn-outline-warning mx-2">Sửa</a>
+                            <a href="/MHNhaphang/Delete?Ma=@hoadonnhap.Ma" class="btn btn-outline-danger mx-2">Xoá</a>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Không có hoá đơn nhập hàng.</p>
+    }
+
+</div>
+

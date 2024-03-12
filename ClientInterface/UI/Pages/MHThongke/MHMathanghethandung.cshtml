@@ -1,0 +1,46 @@
+﻿@page
+@model DoAn.Pages.MHThongke.MHMathanghethandung
+@{
+}
+
+
+<div class="container p-3">
+    <h1 class="pt-4">Kiểm tra hàng hết hạn</h1>
+    <form method="post">
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="ngaykiemtra">Ngày kiểm tra</label>
+                <div class="d-flex flex-row justify-content-between">
+                    <input asp-for="ngaykiemtra" class="form-control" />
+                    <input type="submit" class="form-control" value="Kiểm tra"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <table class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Mã mặt hàng</th>
+                        <th>Tên mặt hàng</th>
+                        <th>Ngày hết hạn</th>
+                        <th>Số lượng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var (mathang, soluong) in Model.dsMathanghethan)
+                    {
+                        if (soluong > 0)
+                        {
+                            <tr>
+                                <td width="15%">@mathang.Ma</td>
+                                <td width="40%">@mathang.Ten</td>
+                                <td width="20%">@mathang.HanDung.ToString("dd/MM/yyyy")</td>
+                                <td width="20%">@soluong</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>
