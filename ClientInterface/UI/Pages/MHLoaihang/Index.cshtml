@@ -1,0 +1,55 @@
+﻿@page
+@model DoAn.Pages.MHLoaihang.IndexModel
+@{
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1>Loại hàng</h1>
+            <form method="post">
+                <label for="find">Tìm kiếm</label>
+                <input type="text" id="find" name="Keyword" value="@Model.Keyword" />
+                <input type="submit" value="OK" />
+            </form>
+        </div>
+        <div class="col-6 text-right">
+            <a class="btn btn-outline-success" href="./Create">Thêm loại hàng</a>
+        </div>
+    </div>
+
+    <br />
+
+    @if (Model.dsLoaihang.Count > 0)
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Mã</th>
+                    <th>Tên loại hàng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var loaihang in Model.dsLoaihang)
+                {
+                    <tr>
+                        <td width="10%">@loaihang.Ma</td>
+                        <td width="50%">@loaihang.Ten</td>
+                        <td class="text-center">
+                            <div class="w-75 btn-group" role="group">
+                                <a href="/MHLoaihang/Edit?Ma=@loaihang.Ma" class="btn btn-outline-warning mx-2">Sửa</a>
+                                <a href="/MHLoaihang/Delete?Ma=@loaihang.Ma" class="btn btn-outline-danger mx-2">Xoá</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="py-3 text-danger">Không tìm thấy</p>
+    }
+
+</div>
+

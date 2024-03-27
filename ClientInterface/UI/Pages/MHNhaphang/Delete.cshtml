@@ -1,0 +1,76 @@
+﻿@page
+@model DoAn.Pages.MHNhaphang.DeleteModel
+@{
+}
+
+<div class="container p-3">
+    <h1 class="pt-4">Xoá hoá đơn nhập hàng</h1>
+    <form method="post">
+        <div class="row pt-3">
+            <div class="col-8">
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="Ten">Tên</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" asp-for="Ten" class="form-control" disabled />
+                        <span asp-validation-for="Ten" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="Mamathang">Mặt hàng</label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="Mamathang" class="form-control" disabled>
+                            @foreach (var mathang in Model.dsMathang)
+                            {
+                                <option value="@mathang.Ma">@mathang.Ten</option>
+                            }
+                        </select>
+                        <span asp-validation-for="Mamathang" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="Soluong">Số lượng</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="number" asp-for="Soluong" class="form-control" disabled />
+                        <span asp-validation-for="Soluong" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="Ngaynhap">Ngày nhập</label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Ngaynhap" class="form-control" />
+                        <span asp-validation-for="Ngaynhap" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2"></div>
+                    <div class="col-8">
+                        <div class="row">
+                            <div class="col">
+                                <input type="submit" class="btn btn-danger w-100" value="Delete">
+                            </div>
+                            <div class="col">
+                                <a class="btn btn-primary w-100" asp-page="/MHNhaphang/Index">Quay lại</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="py-3 text-danger">@Model.ErrorMessage</p>
+    </form>
+
+</div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
