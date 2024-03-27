@@ -1,0 +1,11 @@
+D:\OneDrive - VNU-HCMUS\Documents\GitHub\spiderbot\NM_CongNghePhanMem\bin\Debug\NM_CongNghePhanMem.exe.config
+D:\OneDrive - VNU-HCMUS\Documents\GitHub\spiderbot\NM_CongNghePhanMem\bin\Debug\NM_CongNghePhanMem.exe
+D:\OneDrive - VNU-HCMUS\Documents\GitHub\spiderbot\NM_CongNghePhanMem\bin\Debug\NM_CongNghePhanMem.pdb
+D:\OneDrive - VNU-HCMUS\Documents\GitHub\spiderbot\NM_CongNghePhanMem\obj\Debug\NM_CongNghePhanMem.csproj.AssemblyReference.cache
+D:\OneDrive - VNU-HCMUS\Documents\GitHub\spiderbot\NM_CongNghePhanMem\obj\Debug\NM_CongNghePhanMem.Login.resources
+D:\OneDrive - VNU-HCMUS\Documents\GitHub\spiderbot\NM_CongNghePhanMem\obj\Debug\NM_CongNghePhanMem.Properties.Resources.resources
+D:\OneDrive - VNU-HCMUS\Documents\GitHub\spiderbot\NM_CongNghePhanMem\obj\Debug\NM_CongNghePhanMem.SplashScreen.resources
+D:\OneDrive - VNU-HCMUS\Documents\GitHub\spiderbot\NM_CongNghePhanMem\obj\Debug\NM_CongNghePhanMem.csproj.GenerateResource.cache
+D:\OneDrive - VNU-HCMUS\Documents\GitHub\spiderbot\NM_CongNghePhanMem\obj\Debug\NM_CongNghePhanMem.csproj.CoreCompileInputs.cache
+D:\OneDrive - VNU-HCMUS\Documents\GitHub\spiderbot\NM_CongNghePhanMem\obj\Debug\NM_CongNghePhanMem.exe
+D:\OneDrive - VNU-HCMUS\Documents\GitHub\spiderbot\NM_CongNghePhanMem\obj\Debug\NM_CongNghePhanMem.pdb
