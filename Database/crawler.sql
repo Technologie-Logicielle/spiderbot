@@ -102,7 +102,7 @@ CREATE TABLE notification(
 CREATE TABLE crawler(
     id INT  PRIMARY KEY,
     label VARCHAR(255) NOT NULL,
-    config JSON NOT NULL,
+    config NVARCHAR(max) NOT NULL,
     created_at TIMESTAMP
 );
 
