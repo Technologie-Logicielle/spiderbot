@@ -13,7 +13,7 @@ CREATE TABLE users (
 CREATE TABLE permissions (
     permission_id INT  PRIMARY KEY,
     role TEXT CHECK(role IN ('admin', 'user', 'visitor')) DEFAULT 'visitor' NOT NULL,
-    role TEXT CHECK(permission IN ('read', 'write', 'delete')) DEFAULT 'read' NOT NULL,
+    permission TEXT CHECK(permission IN ('read', 'write', 'delete')) DEFAULT 'read' NOT NULL,
     description VARCHAR(255),
     CONSTRAINT unique_role_permission UNIQUE (role, permission),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
