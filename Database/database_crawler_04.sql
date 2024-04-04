@@ -146,12 +146,12 @@ ALTER TABLE user_permissions
 ADD PRIMARY KEY (user_id, permission_id);
 
 -- Thêm dữ liệu mẫu
-INSERT INTO users (id, username, first_name, last_name, role)
+INSERT INTO users (id, username, hashed_password, first_name, last_name, email, role)
 VALUES
-    (1, 'BinhBill', 'Duc Binh', 'Nguyen', 'Admin'),
-    (2, 'DHHuong', 'Hoai Huong', 'Duong', 'Visitor'),
-    (3, 'TranDungSy', 'Dung Sy', 'Tran', 'User'),
-    (4, 'TruongHoAnhPha', 'Anh Pha', 'Truong Ho', 'User');
+    (1, 'BinhBill', '123456', 'Duc Binh', 'Nguyen', 'abc@gmail.com', 'Admin'),
+    (2, 'DHHuong', '123456', 'Hoai Huong', 'Duong', 'bcd@gmail.com', 'Visitor'),
+    (3, 'TranDungSy','123456', 'Dung Sy', 'Tran', 'cde@gmail.com', 'User'),
+    (4, 'TruongHoAnhPha', '123456','Anh Pha', 'Truong Ho', 'def@gmail.com', 'User');
 
 -- Cập nhật user
 UPDATE users
