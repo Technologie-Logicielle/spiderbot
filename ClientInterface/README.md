@@ -1,3 +1,6 @@
+# ClientInterface
+cd ClientInterface
+
 # install project
 npm install
 
