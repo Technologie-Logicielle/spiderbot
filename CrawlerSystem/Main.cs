@@ -64,6 +64,8 @@ namespace NM_CongNghePhanMem
 
                     progressBar1.Maximum = containerList.Count;
                     lb_Count.Text= containerList.Count.ToString();
+
+                    conference addConference = new conference();
                     for (int i = 0; i < containerList.Count; i++)
                     {
                         detailNotes.LoadHtml(containerList[i]);
@@ -77,7 +79,20 @@ namespace NM_CongNghePhanMem
                             monthNodes = " - month: " + detailNotes.DocumentNode.SelectSingleNode("//div/div/h5").InnerHtml;
                             titleNodes = " - title: " + detailNotes.DocumentNode.SelectSingleNode("//div/div/h3").InnerHtml;
                             locationNodes = detailNotes.DocumentNode.SelectSingleNode("//div/div/div/div/div").InnerHtml;
-                            locationNodes = " - location: " + locationNodes.Substring(40, locationNodes.Length - 40);
+                            string getLocationNote = locationNodes.Substring(40, locationNodes.Length - 40);
+                            locationNodes = " - location: " + getLocationNote;
+
+                            addConference.name = detailNotes.DocumentNode.SelectSingleNode("//div/div/h3").InnerHtml;
+                            addConference.country = getLocationNote;
+                            addConference.city = getLocationNote;
+                            addConference.start_date = DateTime.Now;
+                            addConference.end_date = DateTime.Now;
+                            addConference.submit_format = "abc";
+                            addConference.description = "abcd";
+                            addConference.url = idNote;
+                            addConference.created_at = (int)DateTime.Now.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+                            addConference.AddConference();
+
                             tb_Conference.Text += i + " - Id: " + idNote + dayNodes + monthNodes + titleNodes + locationNodes + "-----------\r\n";
                         }
                     }
