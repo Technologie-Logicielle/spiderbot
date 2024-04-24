@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HtmlAgilityPack;
+using CRAWLER.DATA;
 
 namespace NM_CongNghePhanMem
 {
@@ -19,96 +20,7 @@ namespace NM_CongNghePhanMem
             InitializeComponent();
         }
 
-        private void bt_Read_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string getContent = GetContent("https://internationalconferencealerts.com/conference/information-technology");
-
-                List<string> containerList = new List<string>();
-                HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
-                doc.LoadHtml(getContent);
-
-                //HtmlNode textNodes = doc.DocumentNode.SelectSingleNode("//div[@id='tab1']");
-                //HtmlAgilityPack.HtmlDocument doc1 = new HtmlAgilityPack.HtmlDocument();
-                //doc1.LoadHtml(textNodes.OuterHtml);
-
-                //textBox1.Text += textNodes.OuterHtml + "-----------\r\n";
-
-                HtmlNodeCollection textNodes = doc.DocumentNode.SelectNodes("//div[@id='tab1']/div/div");
-                //HtmlNodeCollection textNodes = doc.DocumentNode.SelectNodes("//div/div[@data-val]");
-                foreach (var containerNode in textNodes)
-                {
-                    containerList.Add(containerNode.OuterHtml.Trim());
-                }
-
-                HtmlAgilityPack.HtmlDocument detailNotes = new HtmlAgilityPack.HtmlDocument();
-                string idNote=null, dayNodes = null, monthNodes = null, titleNodes = null, locationNodes = null;
-                int getIndex = 0;
-                for (int i = 0; i < containerList.Count; i++)
-                {
-                    detailNotes.LoadHtml(containerList[i]);
-                    if(containerList[i].Contains("data-val="))
-                    {
-                        getIndex = containerList[i].IndexOf("data-val=") + 10;
-                        idNote = containerList[i].Substring(getIndex, 7);
-
-                        detailNotes.LoadHtml(containerList[i]);
-                        dayNodes = " - day: " + detailNotes.DocumentNode.SelectSingleNode("//div/div/h6").InnerHtml;
-                        monthNodes = " - month: " + detailNotes.DocumentNode.SelectSingleNode("//div/div/h5").InnerHtml;
-                        titleNodes = " - title: " + detailNotes.DocumentNode.SelectSingleNode("//div/div/h3").InnerHtml;
-                        locationNodes = detailNotes.DocumentNode.SelectSingleNode("//div/div/div/div/div").InnerHtml;
-                        locationNodes = " - location: " + locationNodes.Substring(40, locationNodes.Length - 40);
-                        textBox1.Text += i + " - Id: " + idNote + dayNodes + monthNodes + titleNodes + locationNodes + "-----------\r\n";
-                    }
-
-                    //string sdadak = abc.DocumentNode.SelectSingleNode("//div").InnerHtml;
-
-                    //textBox1.Text += sdadak + "-----------\r\n";
-                }
-
-
-                //HtmlNodeCollection abc = textNodes.SelectNodes("//div/a/div");
-                //foreach (var item in abc)
-                //    textBox1.Text += item.GetAttributeValue("data-val", "") + "-----------\r\n";
-                //
-                //if (textNodes != null)
-                //{
-                //    foreach (HtmlNode containerNode in textNodes)
-                //    {
-                //        containerList.Add(containerNode.OuterHtml.Trim());
-
-                //    }
-
-                //    //HtmlAgilityPack.HtmlDocument abc = new HtmlAgilityPack.HtmlDocument();
-                //    //string abcNodes = null, bcdNodes = null, cdeNodes = null, efgNodes = null;
-                //    //for (int i = 0; i < containerList.Count; i++)
-                //    //{
-                //    //    abc.LoadHtml(containerList[i]);
-
-                //    //    abcNodes = "day: " + abc.DocumentNode.SelectSingleNode("//div/div/h6").InnerHtml;
-                //    //    bcdNodes = " - month: " + abc.DocumentNode.SelectSingleNode("//div/div/h5").InnerHtml;
-                //    //    cdeNodes = " - title: " + abc.DocumentNode.SelectSingleNode("//div/div/h3").InnerHtml;
-
-                //    //    efgNodes = abc.DocumentNode.SelectSingleNode("//div/div/div/div/div").InnerHtml;
-                //    //    efgNodes = " - location: " + efgNodes.Substring(40, efgNodes.Length - 40);
-                //    //    textBox1.Text += abcNodes + bcdNodes + cdeNodes + efgNodes + "-----------\r\n";
-
-                //    //}
-
-                //    for (int i = 0; i < containerList.Count; i++)
-                //    {
-                //        textBox1.Text += containerList[i].ToString() + "------------------------------------\r\n";
-                //    }
-                //}
-            }
-            catch (Exception ex)
-            {
-                textBox1.Text= ex.ToString();
-            }
-        }
-
-        private String GetContent(string url)
+        private String GetContent()
         {
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
@@ -119,9 +31,232 @@ namespace NM_CongNghePhanMem
 
             WebClient webClient = new WebClient();
 
-            string sString = webClient.DownloadString(url);
+            string sString = null;
+            if(!String.IsNullOrEmpty(tb_Link.Text))
+            {
+                sString = webClient.DownloadString(tb_Link.Text);
+            }
+            
             return sString;
         }
 
+        private void LoadData()
+        {
+            tb_Conference.Text = "";
+            try
+            {
+                string getContent = GetContent();
+                if (!String.IsNullOrEmpty(getContent))
+                {
+                    List<string> containerList = new List<string>();
+                    HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+                    doc.LoadHtml(getContent);
+
+                    HtmlNodeCollection textNodes = doc.DocumentNode.SelectNodes("//div[@id='tab1']/div/div");
+                    foreach (var containerNode in textNodes)
+                    {
+                        containerList.Add(containerNode.OuterHtml.Trim());
+                    }
+
+                    HtmlAgilityPack.HtmlDocument detailNotes = new HtmlAgilityPack.HtmlDocument();
+                    string idNote = null, dayNodes = null, monthNodes = null, titleNodes = null, locationNodes = null;
+                    int getIndex = 0;
+
+                    progressBar1.Maximum = containerList.Count;
+                    lb_Count.Text= containerList.Count.ToString();
+                    for (int i = 0; i < containerList.Count; i++)
+                    {
+                        detailNotes.LoadHtml(containerList[i]);
+                        if (containerList[i].Contains("data-val="))
+                        {
+                            getIndex = containerList[i].IndexOf("data-val=") + 10;
+                            idNote = containerList[i].Substring(getIndex, 7);
+
+                            detailNotes.LoadHtml(containerList[i]);
+                            dayNodes = " - day: " + detailNotes.DocumentNode.SelectSingleNode("//div/div/h6").InnerHtml;
+                            monthNodes = " - month: " + detailNotes.DocumentNode.SelectSingleNode("//div/div/h5").InnerHtml;
+                            titleNodes = " - title: " + detailNotes.DocumentNode.SelectSingleNode("//div/div/h3").InnerHtml;
+                            locationNodes = detailNotes.DocumentNode.SelectSingleNode("//div/div/div/div/div").InnerHtml;
+                            locationNodes = " - location: " + locationNodes.Substring(40, locationNodes.Length - 40);
+                            tb_Conference.Text += i + " - Id: " + idNote + dayNodes + monthNodes + titleNodes + locationNodes + "-----------\r\n";
+                        }
+                    }
+                    
+                }
+                else
+                {
+                    tb_Conference.Text = "No data found!";
+                }
+            }
+            catch (Exception ex)
+            {
+                tb_Conference.Text = ex.ToString();
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            label2.Text = DateTime.Now.Minute.ToString()
+                        + ","
+                        + DateTime.Now.Second.ToString();
+
+            if (progressBar1.Value != int.Parse(lb_Count.Text))
+            {
+                progressBar1.Value++;
+            }
+
+            if (progressBar1.Value == int.Parse(lb_Count.Text))
+            {
+                if(label1.Text == label2.Text)
+                {
+                    progressBar1.Value = 0;
+                    label1.Text = DateTime.Now.AddMinutes(int.Parse(tb_Minute.Text)).Minute.ToString()
+                                + ","
+                                + DateTime.Now.AddSeconds(int.Parse(tb_Second.Text)).Second.ToString();
+                    LoadData();
+                }
+            }
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                DataTable getURL = page.GetUrl("True");
+                if (getURL != null)
+                {
+                    tb_Link.Text = getURL.Rows[0]["url"].ToString();
+                    lb_PageID.Text = getURL.Rows[0]["page_id"].ToString();
+                    tb_Minute.Text = getURL.Rows[0]["crawled_at_minute"].ToString();
+                    tb_Second.Text = getURL.Rows[0]["crawled_at_second"].ToString();
+
+                    timer1.Tick += new EventHandler(timer1_Tick);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Connection errors! Please check again.", "Error");
+            }
+        }
+
+        private void bt_Read_Click(object sender, EventArgs e)
+        {
+            bt_Stop.Enabled = true;
+            bt_Read.Enabled = false;
+
+            label1.Text = DateTime.Now.AddMinutes(int.Parse(tb_Minute.Text)).Minute.ToString()
+                        + ","
+                        + DateTime.Now.AddSeconds(int.Parse(tb_Second.Text)).Second.ToString();
+
+            timer1.Enabled = true;
+            timer1.Start();
+
+            LoadData();
+        }
+
+        private void bt_Stop_Click(object sender, EventArgs e)
+        {
+            bt_Stop.Enabled = false;
+            bt_Read.Enabled = true;
+
+            timer1.Stop();
+            timer1.Enabled = false;
+            progressBar1.Value =0;
+            tb_Conference.Text = "";
+            MessageBox.Show("Stop conference.", "Message");
+        }
+
+        private void bt_Save_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tb_Minute.Text) || string.IsNullOrEmpty(tb_Second.Text))
+            {
+                MessageBox.Show("Please set a time to retrieve data!", "Warning!");
+            }
+            else if (tb_Minute.Text == "0" && tb_Second.Text == "0")
+            {
+                MessageBox.Show("Please set a time to retrieve data!", "Warning!");
+            }
+            else
+            {
+                if (int.Parse(tb_Minute.Text) < 0 || int.Parse(tb_Second.Text) < 0)
+                {
+                    MessageBox.Show("Please check the time to collect data!", "Warning!");
+                }
+                else
+                {
+                    try
+                    {
+                        page updateTimeStamp = new page();
+                        updateTimeStamp.crawled_at_minute = int.Parse(tb_Minute.Text);
+                        updateTimeStamp.crawled_at_second = int.Parse(tb_Second.Text);
+                        updateTimeStamp.UpdateTimestamp(int.Parse(lb_PageID.Text));
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Connection errors! Please check again.", "Error");
+                    }
+                    finally
+                    {
+                        tb_Minute.Enabled = false;
+                        tb_Second.Enabled = false;
+                        bt_Save.Visible = false;
+                        bt_Cancel.Visible = false;
+                        bt_Modify.Visible = true;
+
+                        if (label1.Text == "")
+                        {
+                            bt_Read.Enabled = true;
+                            bt_Stop.Enabled = false;
+                        }
+                        else
+                        {
+                            bt_Read.Enabled = false;
+                            bt_Stop.Enabled = true;
+                        }
+
+                        MessageBox.Show("Save successful.", "Message");
+                    }
+                }
+            }
+        }
+
+        private void bt_Modify_Click(object sender, EventArgs e)
+        {
+            tb_Minute.Enabled = true;
+            tb_Second.Enabled = true;
+            bt_Save.Visible = true;
+            bt_Cancel.Visible = true;
+            bt_Modify.Visible = false;
+            if (label1.Text == "")
+            {
+                bt_Read.Enabled = true;
+                bt_Stop.Enabled = false;
+            }
+            else
+            {
+                bt_Read.Enabled = false;
+                bt_Stop.Enabled = true;
+            }
+        }
+
+        private void bt_Cancel_Click(object sender, EventArgs e)
+        {
+            tb_Minute.Enabled = false;
+            tb_Second.Enabled = false;
+            bt_Save.Visible = false;
+            bt_Cancel.Visible = false;
+            bt_Modify.Visible = true;
+
+            if(label1.Text =="")
+            {
+                bt_Read.Enabled = true;
+                bt_Stop.Enabled = false;
+            }
+            else
+            {
+                bt_Read.Enabled = false;
+                bt_Stop.Enabled = true;
+            }
+        }
     }
 }
