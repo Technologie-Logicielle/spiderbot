@@ -1,9 +1,9 @@
 const authHeader = () => {
-    const user = JSON.parse(localStorage.getItem('isuser'));
+    const data = JSON.parse(localStorage.getItem('isuser'));
   
-    if (user && user.token) {
+    if (data && data.token) {
      
-      return { Authorization: `Bearer ${user.token}`
+      return { Authorization: data.token
     };       
     } else {
       return {};
@@ -11,28 +11,20 @@ const authHeader = () => {
   } 
   
 const  getUserId  = () => {
-    const userid = JSON.parse(localStorage.getItem('isuser'));
+    const data = JSON.parse(localStorage.getItem('isuser'));
 
-    if (userid && userid.data && userid.data.id) {
-      return userid.data.id
+    if (data && data.id) {
+      return data.id
     }else {
       return "";
     }
     
   }
-  const role = () => {
-    const data = JSON.parse(localStorage.getItem('isuser'));
-    
-    if (data && data.data && data.data.role) {
-      return data.data.role
-    } else {
-      return "";
-    }
-  }
+  
   const userName = () => {
     const data = JSON.parse(localStorage.getItem('isuser'));
-    if (data && data.data && data.data.name) {
-      return data.data.name
+    if (data  && data.username) {
+      return data.username
     } else {
       return "";
     }
@@ -40,8 +32,37 @@ const  getUserId  = () => {
   const email = () => {
     const data = JSON.parse(localStorage.getItem('isuser'));
     
-    if (data && data.data && data.data.email) {
-      return data.data.email
+    if (data &&  data.email) {
+      return data.email
+    } else {
+      return "";
+    }
+  }
+  const firstname = () => {
+    const data = JSON.parse(localStorage.getItem('isuser'));
+    
+    if (data &&  data.first_name) {
+      return data.first_name
+    } else {
+      return "";
+    }
+  }
+
+  const lastname = () => {
+    const data = JSON.parse(localStorage.getItem('isuser'));
+    
+    if (data &&  data.last_name) {
+      return data.last_name
+    } else {
+      return "";
+    }
+  }
+
+  const role = () => {
+    const data = JSON.parse(localStorage.getItem('isuser'));
+    
+    if (data &&  data.role) {
+      return data.role
     } else {
       return "";
     }
@@ -50,9 +71,11 @@ const  getUserId  = () => {
   const header = {
     authHeader,
     getUserId,
-    role,
     userName,
-    email
+    email,
+    firstname,
+    lastname,
+    role
   }
 
   export default header;

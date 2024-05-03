@@ -8,7 +8,7 @@ import {
 import { BsEye } from 'react-icons/bs';
 import { BsEyeSlash } from 'react-icons/bs';
 import {Form, Row, Col, Card, Button, InputGroup} from 'react-bootstrap'
-import Service from "../services/auth.service"
+import userService from "../services/user.service"
 import notification from "../utils/notification";
 import FooterPage from "../components/layout/Footer";
 
@@ -17,7 +17,9 @@ const { Header,  Content } = Layout;
 
 export default function SignUp () {
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const [first_name, setFirst_name] = useState("");
+  const [last_name, setLast_name] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPass, setShowPass] = useState(false)
@@ -26,8 +28,14 @@ export default function SignUp () {
     const handleChangeEmail = (event) =>{
       setEmail(event.target.value);
     }       
-    const handleChangeName = (event) =>{
-      setName(event.target.value);
+    const handleChangeUserName = (event) =>{
+      setUsername(event.target.value);
+    }
+    const handleChangeFirstName = (event) =>{
+      setFirst_name(event.target.value);
+    }
+    const handleChangeLastName = (event) =>{
+      setLast_name(event.target.value);
     }
     const handleChangePassword = (event) =>{
       setPassword(event.target.value);
@@ -38,7 +46,9 @@ export default function SignUp () {
     const clearInput = () => {
       setConfirmPassword("");
       setEmail("");
-      setName("");
+      setUsername("");
+      setFirst_name("");
+      setLast_name("");
       setPassword("");
     }
     const handleshowPass = () =>{
@@ -50,15 +60,17 @@ export default function SignUp () {
 
     
   const handleOnClick = () =>{
-    if (email && name &&  password && confirmPassword) {
-      console.log(email , name ,  password ,  confirmPassword)
+    if (email && username && last_name && first_name &&  password && confirmPassword) {
+
       if(password && confirmPassword && password === confirmPassword) {
-        Service.Signup(email, password, name).then(
+        
+        userService.signUp(username, first_name, last_name, email, password).then(
           response =>{
-            if(response.data.success) {
-              alert(notification.CREATE)              
+            if(response.data) {           
+              alert(notification.CREATE_ACCOUNT);
+              clearInput(); 
               window.location.assign('/signin')
-              clearInput();            
+                         
             }
           } , error => {
             
@@ -109,17 +121,37 @@ export default function SignUp () {
                   </Form.Group>
                 </Col>
                 
-              </Row>     
+              </Row>   
               <Row>
                 <Col md={{ span: 6, offset: 0 }}>
                 <Form.Group className="mb-3" controlId="formBasicName">
-                  <Form.Label>Name </Form.Label>
-                  <Form.Control type="text" placeholder="Enter Name" 
-                      value={name}
-                      onChange = {(event) =>{handleChangeName(event)}} />
+                  <Form.Label>UserName </Form.Label>
+                  <Form.Control type="text" placeholder="Enter UserName" 
+                      value={username}
+                      onChange = {(event) =>{handleChangeUserName(event)}} />
                   </Form.Group>
                 </Col>
-              </Row>               
+              </Row>  
+              <Row>
+                <Col md={{ span: 6, offset: 0 }}>
+                <Form.Group className="mb-3" controlId="formBasicName">
+                  <Form.Label>First Name </Form.Label>
+                  <Form.Control type="text" placeholder="Enter FirstName" 
+                      value={first_name}
+                      onChange = {(event) =>{handleChangeFirstName(event)}} />
+                  </Form.Group>
+                </Col>
+              </Row>  
+              <Row>
+                <Col md={{ span: 6, offset: 0 }}>
+                <Form.Group className="mb-3" controlId="formBasicName">
+                  <Form.Label>Last Name </Form.Label>
+                  <Form.Control type="text" placeholder="Enter LastName" 
+                      value={last_name}
+                      onChange = {(event) =>{handleChangeLastName(event)}} />
+                  </Form.Group>
+                </Col>
+              </Row>             
               <Row>
                 <Col md={{ span: 6, offset: 0 }}>
                 

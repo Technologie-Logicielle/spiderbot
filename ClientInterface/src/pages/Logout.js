@@ -1,6 +1,5 @@
 
 import { useState, useEffect } from "react";
-import Service from "../services/auth.service"
 
 function Logout() {
   useEffect ( ()=>{

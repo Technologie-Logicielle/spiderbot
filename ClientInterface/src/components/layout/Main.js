@@ -12,7 +12,7 @@ function Main({ children }) {
   const [visible, setVisible] = useState(false);
   const [placement, setPlacement] = useState("right");
   const [sidenavColor, setSidenavColor] = useState("#1890ff");
-  const [sidenavType, setSidenavType] = useState("pink");
+  const [sidenavType, setSidenavType] = useState("#74E5CE");
   const [fixed, setFixed] = useState(false);
 
   const openDrawer = () => setVisible(!visible);

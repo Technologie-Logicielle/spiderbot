@@ -4,8 +4,8 @@ cd ClientInterface
 # install project
 npm install
 
-# set file .env 
-set file .env for backend
+# create file .env 
+copy text file .env.example and paste .env
 
 # start project
 npm start

@@ -5,7 +5,8 @@ import Home from "./pages/Home";
 import AdminCustomer from "./pages/admin/admin.customer";
 import AdminProfile from "./pages/admin/admin.profile";
 
-import CustomerProfile from "./pages/customer/customer.profile";
+import UserProfile from "./pages/user/user.profile";
+import UserConference from './pages/user/user.conference';
 
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
@@ -20,9 +21,8 @@ import "./assets/styles/responsive.css";
 import header from "./services/header.service";
 
 function App() {
-  const isUser = header.email() && header.role() 
-  const isAdmin = header.email() && header.role() && header.role() === "admin";
-  const isCustomer = header.email() && header.role() && header.role() === "customer";
+  const isAdmin = header.userName() && header.email();
+  const isUser = header.email() && header.userName() ;
   return (
     <div className="App">
       <Switch>
@@ -30,13 +30,13 @@ function App() {
         <Route path="/signin" exact component={SignIn} />
         <Route path="/404" exact component={Page404} />
         <Main>  
-          <Route exact path="/admincustomer" component={isAdmin ? AdminCustomer : NotFound} />          
+          <Route exact path="/admin00" component={isAdmin ? AdminCustomer : NotFound} />          
          
-          <Route exact path="/adminprofile" component={isAdmin ? AdminProfile : NotFound} /> 
+          <Route exact path="/admin01" component={isAdmin ? AdminProfile : NotFound} /> 
+
+          <Route exact path="/conferences" component={isUser ? UserConference : NotFound} />
          
-          <Route exact path="/customerprofile" component={isCustomer ? CustomerProfile : NotFound} />
-          
-          <Route exact path="/signin" component={isUser ? Logout : NotFound} />
+          <Route exact path="/userprofile" component={isUser ? UserProfile : NotFound} />
           
           <Route exact path="/*" component={Home} />
           

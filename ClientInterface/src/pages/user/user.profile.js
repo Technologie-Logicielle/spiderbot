@@ -11,19 +11,21 @@ import Row from 'react-bootstrap/Row'
 import Col from "react-bootstrap/Col";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import customerService from "../../services/customer.service";
+import userService from "../../services/user.service";
 import notification from "../../utils/notification";
+import header from "../../services/header.service";
+
 
 export default function CustomerProfile () {
     const [isLoad, setIsLoad] = useState(false);
     const [email, setEmail] = useState("");
-    const [name, setName] = useState("");
-    const [password, setPassword] = useState("");
+    const [username, setUserName] = useState("");
+    const [first_name, setFirst_name] = useState("");
+    const [last_name, setLast_name] = useState("");
     const [confirmPass, setConfirmPass] = useState("");
-    const [showPass, setShowPass] = useState(false)
     const [showChangePass,setShowChangePass] = useState(false)
-    const [oldPass, setOldPass] = useState("");
-    const [newPass, setNewPass] = useState("");
+    const [password, setPassword] = useState("");
+    const [new_pass, setNew_Pass] = useState("");
     const [showOldPass, setShowOldPass] = useState(false)
     const [showNewPass, setShowNewPass] = useState(false)
     const [showConfirmPass, setShowConfirmPass] = useState(false)
@@ -31,67 +33,59 @@ export default function CustomerProfile () {
   const handleChangeEmail = (event) => (
     setEmail(event.target.value)
   )
+  const handleChangeUserName = (event) => (
+    setUserName(event.target.value)
+  )
+  const handleChangeFirstName = (event) => (
+    setFirst_name(event.target.value)
+  )
+  const handleChangeLastName = (event) => (
+    setLast_name(event.target.value)
+  )
  
   const clearScreen = () => {
-    setName("");
+    setFirst_name("");
+    setLast_name("");
+    setUserName("");
     setEmail("");
     setPassword("");
   }
   
-  const handleshowPass = () =>{
-    setShowPass(!showPass)
-  }
   const handleshowOldPass = () =>{
-    setShowOldPass(!oldPass)
+    setShowOldPass(!showOldPass)
   }
   const handleshowNewPass = () =>{
-    setShowNewPass(!newPass)
+    setShowNewPass(!showNewPass)
   }
   const handleshowConfirmPass = () =>{
-    setShowConfirmPass(!confirmPass)
+    setShowConfirmPass(!showConfirmPass)
   }
   const handleClickClose = () => {
     clearChangePass();
     setShowChangePass(false)
   }
   const clearChangePass = () => {
-    setOldPass("");
-    setNewPass("");
+    setPassword("");
+    setNew_Pass("");
     setConfirmPass("");
     setShowChangePass(false)
   }
   
-  const handleClickUpdate = () => {
-    if (email && name &&  password  ) {
-      customerService.putCustomerByCustomer(password,  name ).then(
-        response=>{
-          if(response.data && response.data.success === true) {
-            alert(notification.EDIT)
-            clearScreen();
-            setIsLoad(!isLoad)
-          }
-        } , error =>{
-          if (error.response && error.response.status === 401 && error.response.data.success === false) {
-            console.log(error.response)
-            alert(notification.WRONG_PASSWORD)
-          }
-        }
-      )
-    } else {
-      alert(notification.INPUT)
-    }
-  }
+  
   const handleClickSave = () => {
-    if (oldPass && newPass && confirmPass) {
-      if (newPass === confirmPass) {
-        customerService.putChangePassByCustomer(oldPass, newPass).then(
+    if ( password && new_pass && confirmPass) {
+
+      if (new_pass === confirmPass) {
+        userService.changePass(password, new_pass).then(
+          
           response => {
-            if(response.data && response.data.success === true) {
+            
+            if(response && response.status === 204 ) {
               alert(notification.CHANGE_PASSWORD_SUCCESS)
-              clearChangePass();
+              window.location.assign('/signin')
             }
           }, error => {
-            if (error.response && error.response.status === 401 && error.response.data.success === false){
+            if (error.response && error.response){
               console.log(error.response)
               alert(notification.WRONG_PASSWORD)
             }            
@@ -111,33 +105,23 @@ export default function CustomerProfile () {
     setShowChangePass(true);
   }
   const handleChangeOldPass = (event) => {
-    setOldPass(event.target.value);
+    setPassword(event.target.value);
   }
   const handleChangeNewPass = (event) => {
-    setNewPass(event.target.value);
+    setNew_Pass(event.target.value);
   }
   const handleChangeConfirmPass = (event) => {
     setConfirmPass(event.target.value);
   }
-  const handleChangePass = (event) => (
-    setPassword(event.target.value)
-  )
+  
   
     useEffect(()=>{   
-      customerService.getCustomerIdByCustomer().then(
-        response => {
-          if (response.data && response.data.success === true) {                  
-            console.log(response.data.data)   
-            const temp = response.data.data; 
-            setEmail(temp.email)
-            setName(temp.name)
-          }
-          
-        }, error => {
-          console.log(error)
-        }
-      )
-    },[isLoad])
+      setEmail(header.email())
+      setFirst_name(header.firstname());
+      setLast_name(header.lastname());
+      setUserName(header.userName());
+      
+    },[])
     return(
         <React.Fragment>
         <div className="container">
@@ -161,29 +145,58 @@ export default function CustomerProfile () {
             type="email"         
             value={email}
             onChange={handleChangeEmail}
-             />        
+             />  
+                   
           </Form.Group>
             </Col>
               
           </Row>
           <Row className="container">
             <Col md={{ span: 5, offset: 4 }}>
-            <Form.Label>Password</Form.Label>
-            <InputGroup className="mb-3">
-            
+            <Form.Group className="mb-3">
+            <Form.Label>UserName </Form.Label>
             <Form.Control 
-            placeholder="Password"
-            type={!showPass ? "password" : "text"} 
-            value={password}   
-            onChange={(event) => {handleChangePass(event)}}              
-            />    
-            
-            <InputGroup.Text>{showPass ? <BsEye onClick={handleshowPass}/> : <BsEyeSlash onClick={handleshowPass}/>}</InputGroup.Text>
-                     
+            disabled
+            type="username"         
+            value={username}
+            onChange={handleChangeUserName}
+             />  
+                   
+          </Form.Group>
+            </Col>
               
-        </InputGroup>
-            </Col>              
-          </Row>          
+          </Row>
+          <Row className="container">
+            <Col md={{ span: 5, offset: 4 }}>
+            <Form.Group className="mb-3">
+            <Form.Label>FirstName </Form.Label>
+            <Form.Control 
+            disabled
+            type="firstname"         
+            value={first_name}
+            onChange={handleChangeFirstName}
+             />  
+                   
+          </Form.Group>
+            </Col>
+              
+          </Row>
+          <Row className="container">
+            <Col md={{ span: 5, offset: 4 }}>
+            <Form.Group className="mb-3">
+            <Form.Label>UserName </Form.Label>
+            <Form.Control 
+            disabled
+            type="lastname"         
+            value={last_name}
+            onChange={handleChangeLastName}
+             />  
+                   
+          </Form.Group>
+            </Col>
+              
+          </Row>
+               
           <Row className="container">
             <Col md={{ span: 1, offset: 4 }}>
             <Button className="btn btn-secondary" onClick={handleClickCancel}>
@@ -191,7 +204,7 @@ export default function CustomerProfile () {
             </Button>
             </Col>
             <Col md={{ span: 1, offset: 2 }}>
-            <Button className="btn btn-primary" onClick={handleClickUpdate}>
+            <Button className="btn btn-primary" >
               Update
             </Button>
             </Col>
@@ -213,7 +226,7 @@ export default function CustomerProfile () {
             <Form.Control 
             placeholder="Old Password"
             type={!showOldPass ? "password" : "text"} 
-            value={oldPass}   
+            value={password}   
             onChange={(event) => {handleChangeOldPass(event)}}  
             
             />    
@@ -230,7 +243,7 @@ export default function CustomerProfile () {
             <Form.Control 
             placeholder="New Password"
             type={!showNewPass ? "password" : "text"} 
-            value={newPass}   
+            value={new_pass}   
             onChange={(event) => {handleChangeNewPass(event)}}  
             
             />    

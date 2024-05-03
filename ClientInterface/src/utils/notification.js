@@ -1,5 +1,6 @@
 const CONFIRM_DELETE = "Bạn muốn xóa?";
 const SIGN_SUCCESS = "Đăng nhập thành công";
+const CREATE_ACCOUNT = "Tạo tài khoản thành công";
 const CREATE = "Tạo mới thành công";
 const EDIT = "Sửa thành công";
 const DELETE = "Xóa thành công";
@@ -14,8 +15,10 @@ const ERROR_EMAIL = "Email không tồn tại"
 const CHOOSE_STATUS = "Vui lòng chọn Trạng thái";
 const ERROR_SERVER = "Vui lòng kiểm tra Máy chủ"
 const ERROR_INPUT = "Thông tin không đúng. Vui lòng kiểm tra"
+const URLLink = "https://internationalconferencealerts.com/eventdetails.php?id="
 const notification = {
     CONFIRM_DELETE,
+    CREATE_ACCOUNT,
     CREATE,
     EDIT,
     DELETE,
@@ -30,6 +33,7 @@ const notification = {
     CHANGE_PASSWORD_SUCCESS,
     CHECK_FROM_TO,
     SIGN_SUCCESS,
-    CHOOSE_STATUS
+    CHOOSE_STATUS,
+    URLLink
 }
 export default notification;

@@ -11,7 +11,7 @@ import { BsEye } from 'react-icons/bs';
 import { BsEyeSlash } from 'react-icons/bs';
 import { InputGroup } from "react-bootstrap";
 import {Form, Row, Col, Card, Button} from 'react-bootstrap'
-import Service from "../services/auth.service"
+import userService from "../services/user.service"
 
 import notification from "../utils/notification";
 import FooterPage from "../components/layout/Footer";
@@ -42,19 +42,17 @@ export default function SignIn () {
   }
   const handleOnClick = () =>{
     
-    if(email && password && role){
-      
-      Service.Login(email, password, role).then(
+    if(email && password){
+      userService.signIn(email, password).then(
         response =>{
-          if( response.data && response.data.success ) {
-            console.log(response.data)
+          if( response.data ) {
             localStorage.setItem("isuser", JSON.stringify(response.data));
             alert(notification.SIGN_SUCCESS)
             window.location.assign('/')
             
           } 
         }, error => {
-          if(error.response && error.response.data && error.response.status === 401 && !error.response.data.success) {
+          if(error.response && error.response.data) {
             alert(error.response.data.message)
           }
         }
@@ -102,7 +100,7 @@ export default function SignIn () {
                 <InputGroup.Text>{showPass ? <BsEye onClick={handleshowPass}/> : <BsEyeSlash onClick={handleshowPass}/>}</InputGroup.Text>
                 </InputGroup>
               </Form.Group>
-              
+{/*               
               <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Role </Form.Label>
               <Form.Select 
@@ -110,10 +108,9 @@ export default function SignIn () {
               aria-label="Default select example">
                 <option>Vui lòng chọn</option>
                 <option value="admin">Admin</option>
-                <option value="partner">Partner</option>
-                <option value="customer">Customer</option>
+                <option value="user">User</option>
               </Form.Select>
-              </Form.Group>
+              </Form.Group> */}
               <Button
                     type="primary"
                     htmlType="submit"
