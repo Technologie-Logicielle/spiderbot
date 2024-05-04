@@ -30,6 +30,7 @@ function App() {
         <Route path="/signin" exact component={SignIn} />
         <Route path="/404" exact component={Page404} />
         <Main>  
+          <Switch>
           <Route exact path="/admin00" component={isAdmin ? AdminCustomer : NotFound} />          
          
           <Route exact path="/admin01" component={isAdmin ? AdminProfile : NotFound} /> 
@@ -37,9 +38,9 @@ function App() {
           <Route exact path="/conferences" component={isUser ? UserConference : NotFound} />
          
           <Route exact path="/userprofile" component={isUser ? UserProfile : NotFound} />
-          
-          <Route exact path="/*" component={UserConference} />
-          
+         
+          <Route path="*" component={Page404} />
+          </Switch>
         </Main>
       </Switch>
     </div>
