@@ -272,7 +272,7 @@ function Sidenav({ color }) {
       }
       { isUser &&       
         <Menu.Item key="21">
-          <NavLink to="/conferences">
+          <NavLink to="/">
             <span
               className="icon"
               style={{

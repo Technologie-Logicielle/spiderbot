@@ -31,12 +31,12 @@ function App() {
         <Route path="/404" exact component={Page404} />
         <Main>  
           <Switch>
+          <Route exact path="/" component={UserConference } />
+
           <Route exact path="/admin00" component={isAdmin ? AdminCustomer : NotFound} />          
-         
+
           <Route exact path="/admin01" component={isAdmin ? AdminProfile : NotFound} /> 
 
-          <Route exact path="/conferences" component={isUser ? UserConference : NotFound} />
-         
           <Route exact path="/userprofile" component={isUser ? UserProfile : NotFound} />
          
           <Route path="*" component={Page404} />
