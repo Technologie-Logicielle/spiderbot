@@ -1,12 +1,14 @@
 import axios from "axios";
 import header from "./header.service";
 
-const conferences = () => (
-     axios.get(`${process.env.REACT_APP_API_URL}/conferences`,
+const conferences = (search) => {
+    const searchParams = new URLSearchParams(search)
+    return axios.get(`${process.env.REACT_APP_API_URL}/conferences`,
     { 
-        headers: header.authHeader() 
+        headers: header.authHeader(),
+        params: searchParams
     })
-);
+};
 
 const conferenceById = (id) =>(
     axios.get(`${process.env.REACT_APP_API_URL}/conferences/${id}`, { 

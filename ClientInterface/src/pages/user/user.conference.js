@@ -30,21 +30,32 @@ export default function UserConference () {
     const [search, setSearch] = useState("");
     const [conferences, setConferences] = useState([]);
     const [datas, setDatas] = useState([]); 
+    const [count, setCount] = useState(0); 
+    const [page, setPage] = useState({ page: 1, pageSize: 20 }); 
+    const [sort, setSort] = useState({}); 
+    const [loading, setLoading] = useState(true);
     const [viewConference, setViewConference] = useState(false)
+  /** @type {import('antd').TableColumnType<any>} */
   const columns = [    
-    {
-      title: "Start Date",
-      dataIndex: "start_date",      
-     
-    },
     {
       title: "Name",
       dataIndex: "name",
+      sorter: true
     },
-  
+    {
+      title: "Start Date",
+      dataIndex: "start_date",      
+      sorter: true,
+    },
+    {
+      title: "End Date",
+      dataIndex: "end_date",      
+      sorter: true,
+    },
     {
       title: "City",
-      dataIndex: "city"
+      dataIndex: "city",
+      sorter: true
     },    
     
     {
@@ -54,7 +65,8 @@ export default function UserConference () {
         return (
           <>
             <EyeOutlined
-            style={{ color: "red", marginLeft: 12 }}
+              title="Event page"
+              style={{ color: "red", marginLeft: 12 }}
               onClick={() => {
                 onEditData(record);
               }}
@@ -82,8 +94,8 @@ export default function UserConference () {
     }
   }
   const handleChangeSearch = (event) => {    
-    
     setSearch(event.target.value)
+    setPage({...page, page: 1})
   }
   
   const onEditData = (record) => {
@@ -104,20 +116,24 @@ export default function UserConference () {
     
   };
     useEffect(()=>{   
-        ConferenceService.conferences().then(
+        setLoading(true);
+        ConferenceService.conferences({name: search, ...page, ...sort}).then(
             response => {
 
                 if (response && response.data && response.status) {
 
                     setConferences(response.data.conferences)
                     setDatas(response.data.conferences)
+                    setCount(response.data.count)
                 }
+                setLoading(false);
             }, error => {
                 console.log(error)
+                setLoading(false);
             }
         )
       
-    },[])
+    },[page, search, sort])
     return(
         <React.Fragment>
         <div className="container">
@@ -155,7 +171,17 @@ export default function UserConference () {
             <Table
               columns={columns}
               dataSource={conferences}
-              pagination={true}
+              pagination={{
+                total: count,
+                current: page.page,
+                pageSizeOptions: [10, 20, 50]
+              }}
+              loading={loading}
+              onChange={(pagination, _, sorter) => {
+                console.log(sorter)
+                setPage({ page: pagination.current, pageSize: pagination.pageSize })
+                setSort({ orderBy: sorter.field, order: sorter.order === "ascend" ? "asc" : "desc" })
+              }}
               rowKey="conference_id"              
               bordered
               className="ant-border-space"

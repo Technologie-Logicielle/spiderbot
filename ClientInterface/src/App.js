@@ -38,7 +38,7 @@ function App() {
          
           <Route exact path="/userprofile" component={isUser ? UserProfile : NotFound} />
           
-          <Route exact path="/*" component={Home} />
+          <Route exact path="/*" component={UserConference} />
           
         </Main>
       </Switch>

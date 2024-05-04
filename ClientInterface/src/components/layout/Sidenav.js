@@ -305,7 +305,7 @@ function Sidenav({ color }) {
           </NavLink>
         </Menu.Item>
       }
-      { isUser && 
+      { ( isUser || isAdmin ) && 
         <Menu.Item key="40">
         <NavLink to="/signin">
           <span
@@ -317,6 +317,21 @@ function Sidenav({ color }) {
             {signup}
           </span>
           <span className="label">Logout</span>
+        </NavLink>
+      </Menu.Item>
+      } 
+      { !( isUser || isAdmin ) && 
+        <Menu.Item key="40">
+        <NavLink to="/signin">
+          <span
+            className="icon"
+            style={{
+              background: page === "logout" ? color : "",
+            }}
+          >
+            {signup}
+          </span>
+          <span className="label">Login</span>
         </NavLink>
       </Menu.Item>
       } 

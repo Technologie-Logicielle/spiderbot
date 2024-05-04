@@ -99,7 +99,9 @@ export default function SignUp () {
       <Layout className="layout-default layout-signin">
         <Header>
           <div className="header-col header-brand">
+            <a href="/">
             <h2>Crawler</h2>
+            </a>
           </div>
         </Header>
         <Content className="signin">
