@@ -73,6 +73,16 @@ namespace NM_CongNghePhanMem.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap logo_khoa_hoc_tu_nhien_inkythuatso_01_25_16_11_19 {
+            get {
+                object obj = ResourceManager.GetObject("logo-khoa-hoc-tu-nhien-inkythuatso-01-25-16-11-19", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap settings_icon {
             get {
                 object obj = ResourceManager.GetObject("settings icon", resourceCulture);

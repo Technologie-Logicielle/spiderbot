@@ -72,7 +72,7 @@ namespace NM_CongNghePhanMem
                         if (containerList[i].Contains("data-val="))
                         {
                             getIndex = containerList[i].IndexOf("data-val=") + 10;
-                            idNote = containerList[i].Substring(getIndex, 7);
+                            idNote = containerList[i].Substring(getIndex, 7);//2271790
 
                             detailNotes.LoadHtml(containerList[i]);
                             dayNodes = " - day: " + detailNotes.DocumentNode.SelectSingleNode("//div/div/h6").InnerHtml;
@@ -94,6 +94,7 @@ namespace NM_CongNghePhanMem
                             addConference.AddConference();
 
                             tb_Conference.Text += i + " - Id: " + idNote + dayNodes + monthNodes + titleNodes + locationNodes + "-----------\r\n";
+                            label4.Text = "0";
                         }
                     }
                     
@@ -122,13 +123,19 @@ namespace NM_CongNghePhanMem
 
             if (progressBar1.Value == int.Parse(lb_Count.Text))
             {
-                if(label1.Text == label2.Text)
+                if(label1.Text.Equals(label2.Text))
                 {
-                    progressBar1.Value = 0;
-                    label1.Text = DateTime.Now.AddMinutes(int.Parse(tb_Minute.Text)).Minute.ToString()
-                                + ","
-                                + DateTime.Now.AddSeconds(int.Parse(tb_Second.Text)).Second.ToString();
+                    label4.Text = "1";
+                    UpdateInterval();
                     LoadData();
+                    progressBar1.Value = 0;
+                }
+                else
+                {
+                    if(double.Parse(label2.Text)> double.Parse(label1.Text) && label4.Text == "0")
+                    {
+                        UpdateInterval();
+                    }
                 }
             }
         }
@@ -156,12 +163,10 @@ namespace NM_CongNghePhanMem
 
         private void bt_Read_Click(object sender, EventArgs e)
         {
+            UpdateInterval();
+
             bt_Stop.Enabled = true;
             bt_Read.Enabled = false;
-
-            label1.Text = DateTime.Now.AddMinutes(int.Parse(tb_Minute.Text)).Minute.ToString()
-                        + ","
-                        + DateTime.Now.AddSeconds(int.Parse(tb_Second.Text)).Second.ToString();
 
             timer1.Enabled = true;
             timer1.Start();
@@ -178,6 +183,8 @@ namespace NM_CongNghePhanMem
             timer1.Enabled = false;
             progressBar1.Value =0;
             tb_Conference.Text = "";
+            label1.Text = "0";
+            label2.Text = "0";
             MessageBox.Show("Stop conference.", "Message");
         }
 
@@ -199,37 +206,36 @@ namespace NM_CongNghePhanMem
                 }
                 else
                 {
-                    try
+                    if (int.Parse(tb_Minute.Text) == 0 && int.Parse(tb_Second.Text) < 30)
                     {
-                        page updateTimeStamp = new page();
-                        updateTimeStamp.crawled_at_minute = int.Parse(tb_Minute.Text);
-                        updateTimeStamp.crawled_at_second = int.Parse(tb_Second.Text);
-                        updateTimeStamp.UpdateTimestamp(int.Parse(lb_PageID.Text));
+                        MessageBox.Show("Please set the interval time greater than 30 seconds!", "Warning!");
                     }
-                    catch
+                    else
                     {
-                        MessageBox.Show("Connection errors! Please check again.", "Error");
-                    }
-                    finally
-                    {
-                        tb_Minute.Enabled = false;
-                        tb_Second.Enabled = false;
-                        bt_Save.Visible = false;
-                        bt_Cancel.Visible = false;
-                        bt_Modify.Visible = true;
-
-                        if (label1.Text == "")
+                        try
                         {
+                            page updateTimeStamp = new page();
+                            updateTimeStamp.crawled_at_minute = int.Parse(tb_Minute.Text);
+                            updateTimeStamp.crawled_at_second = int.Parse(tb_Second.Text);
+                            updateTimeStamp.UpdateTimestamp(int.Parse(lb_PageID.Text));
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Connection errors! Please check again.", "Error");
+                        }
+                        finally
+                        {
+                            tb_Minute.Enabled = false;
+                            tb_Second.Enabled = false;
+                            bt_Save.Visible = false;
+                            bt_Cancel.Visible = false;
+                            bt_Modify.Visible = true;
+
                             bt_Read.Enabled = true;
                             bt_Stop.Enabled = false;
-                        }
-                        else
-                        {
-                            bt_Read.Enabled = false;
-                            bt_Stop.Enabled = true;
-                        }
 
-                        MessageBox.Show("Save successful.", "Message");
+                            MessageBox.Show("Save successful.", "Message");
+                        }
                     }
                 }
             }
@@ -237,20 +243,27 @@ namespace NM_CongNghePhanMem
 
         private void bt_Modify_Click(object sender, EventArgs e)
         {
-            tb_Minute.Enabled = true;
-            tb_Second.Enabled = true;
-            bt_Save.Visible = true;
-            bt_Cancel.Visible = true;
-            bt_Modify.Visible = false;
-            if (label1.Text == "")
+            if(string.IsNullOrEmpty(label1.Text) || label1.Text=="0")
             {
-                bt_Read.Enabled = true;
-                bt_Stop.Enabled = false;
+                tb_Minute.Enabled = true;
+                tb_Second.Enabled = true;
+                bt_Save.Visible = true;
+                bt_Cancel.Visible = true;
+                bt_Modify.Visible = false;
+                if (label1.Text == "")
+                {
+                    bt_Read.Enabled = true;
+                    bt_Stop.Enabled = false;
+                }
+                else
+                {
+                    bt_Read.Enabled = false;
+                    bt_Stop.Enabled = true;
+                }
             }
             else
             {
-                bt_Read.Enabled = false;
-                bt_Stop.Enabled = true;
+                MessageBox.Show("Please stop Crawler before change your config!", "Warning!");
             }
         }
 
@@ -272,6 +285,18 @@ namespace NM_CongNghePhanMem
                 bt_Read.Enabled = false;
                 bt_Stop.Enabled = true;
             }
+        }
+
+        private void UpdateInterval()
+        {
+            DateTime getNow = DateTime.Now;
+            DateTime setNew;
+            setNew = getNow.AddMinutes(int.Parse(tb_Minute.Text));
+            setNew = getNow.AddSeconds(int.Parse(tb_Second.Text));
+            label1.Text = setNew.Minute.ToString()
+                    + ","
+                    + setNew.Second.ToString();
+
         }
     }
 }

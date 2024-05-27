@@ -16,5 +16,21 @@ namespace NM_CongNghePhanMem
         {
             InitializeComponent();
         }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            timer1.Stop();
+            Main mf = new Main();
+            mf.ShowDialog();
+            this.Hide();
+        }
+        
+        private void SplashScreen_Load(object sender, EventArgs e)
+        {
+            timer1 = new Timer();
+            timer1.Interval = 3000;
+            timer1.Start();
+            timer1.Tick += timer1_Tick;
+        }
     }
 }

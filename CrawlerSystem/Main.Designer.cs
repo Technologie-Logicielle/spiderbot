@@ -39,6 +39,8 @@
             this.tb_Link = new System.Windows.Forms.TextBox();
             this.bt_Save = new System.Windows.Forms.Button();
             this.SETTING = new System.Windows.Forms.GroupBox();
+            this.lb_Count = new System.Windows.Forms.Label();
+            this.bt_Cancel = new System.Windows.Forms.Button();
             this.bt_Modify = new System.Windows.Forms.Button();
             this.lb_PageID = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -48,8 +50,8 @@
             this.lb_Link = new System.Windows.Forms.Label();
             this.tb_Minute = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.bt_Cancel = new System.Windows.Forms.Button();
-            this.lb_Count = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.SETTING.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -105,20 +107,20 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(996, 148);
+            this.label1.Location = new System.Drawing.Point(196, 101);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 30);
+            this.label1.Size = new System.Drawing.Size(18, 20);
             this.label1.TabIndex = 4;
-            this.label1.Visible = false;
+            this.label1.Text = "0";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(1178, 146);
+            this.label2.Location = new System.Drawing.Point(323, 101);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(0, 30);
+            this.label2.Size = new System.Drawing.Size(18, 20);
             this.label2.TabIndex = 5;
-            this.label2.Visible = false;
+            this.label2.Text = "0";
             // 
             // tb_Link
             // 
@@ -149,6 +151,8 @@
             // 
             this.SETTING.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.SETTING.Controls.Add(this.label5);
+            this.SETTING.Controls.Add(this.label4);
             this.SETTING.Controls.Add(this.lb_Count);
             this.SETTING.Controls.Add(this.bt_Cancel);
             this.SETTING.Controls.Add(this.bt_Modify);
@@ -171,6 +175,28 @@
             this.SETTING.TabIndex = 6;
             this.SETTING.TabStop = false;
             this.SETTING.Text = "SETTINGS";
+            // 
+            // lb_Count
+            // 
+            this.lb_Count.AutoSize = true;
+            this.lb_Count.Location = new System.Drawing.Point(962, 101);
+            this.lb_Count.Name = "lb_Count";
+            this.lb_Count.Size = new System.Drawing.Size(0, 20);
+            this.lb_Count.TabIndex = 12;
+            this.lb_Count.Visible = false;
+            // 
+            // bt_Cancel
+            // 
+            this.bt_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.bt_Cancel.Location = new System.Drawing.Point(639, 129);
+            this.bt_Cancel.Name = "bt_Cancel";
+            this.bt_Cancel.Size = new System.Drawing.Size(188, 42);
+            this.bt_Cancel.TabIndex = 11;
+            this.bt_Cancel.Text = "Cancel";
+            this.bt_Cancel.UseVisualStyleBackColor = true;
+            this.bt_Cancel.Visible = false;
+            this.bt_Cancel.Click += new System.EventHandler(this.bt_Cancel_Click);
             // 
             // bt_Modify
             // 
@@ -269,27 +295,23 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "CONFERENCE";
             // 
-            // bt_Cancel
+            // label4
             // 
-            this.bt_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.bt_Cancel.Location = new System.Drawing.Point(639, 129);
-            this.bt_Cancel.Name = "bt_Cancel";
-            this.bt_Cancel.Size = new System.Drawing.Size(188, 42);
-            this.bt_Cancel.TabIndex = 11;
-            this.bt_Cancel.Text = "Cancel";
-            this.bt_Cancel.UseVisualStyleBackColor = true;
-            this.bt_Cancel.Visible = false;
-            this.bt_Cancel.Click += new System.EventHandler(this.bt_Cancel_Click);
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(1035, 101);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(0, 20);
+            this.label4.TabIndex = 13;
+            this.label4.Visible = false;
             // 
-            // lb_Count
+            // label5
             // 
-            this.lb_Count.AutoSize = true;
-            this.lb_Count.Location = new System.Drawing.Point(962, 101);
-            this.lb_Count.Name = "lb_Count";
-            this.lb_Count.Size = new System.Drawing.Size(0, 30);
-            this.lb_Count.TabIndex = 12;
-            this.lb_Count.Visible = false;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(273, 101);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(14, 20);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "-";
             // 
             // Main
             // 
@@ -333,5 +355,7 @@
         private System.Windows.Forms.Button bt_Modify;
         private System.Windows.Forms.Button bt_Cancel;
         private System.Windows.Forms.Label lb_Count;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }

@@ -125,5 +125,8 @@
       <Name>CRAWLER.DATA</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo-khoa-hoc-tu-nhien-inkythuatso-01-25-16-11-19.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

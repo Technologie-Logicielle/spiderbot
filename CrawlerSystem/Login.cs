@@ -15,11 +15,11 @@ namespace NM_CongNghePhanMem
     {
         public Login()
         {
-            Thread thread = new Thread(new ThreadStart(StartForm));
-            thread.Start();
-            Thread.Sleep(1000);
-            InitializeComponent();
-            thread.Abort();
+            //Thread thread = new Thread(new ThreadStart(StartForm));
+            //thread.Start();
+            //Thread.Sleep(1500);
+            //InitializeComponent();
+            //thread.Abort();
         }
 
         private void StartForm()
@@ -29,7 +29,7 @@ namespace NM_CongNghePhanMem
 
         private void bt_Login_Click(object sender, EventArgs e)
         {
-            if(tb_Username.Text=="pha" && tb_Password.Text=="demo")
+            if(tb_Username.Text=="cnpm" && tb_Password.Text=="demo")
             {
                 this.Hide();
                 var formMain = new Main();
